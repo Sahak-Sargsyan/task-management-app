@@ -51,6 +51,17 @@ namespace TaskDAL.Repositories
                         .ToListAsync();
         }
 
+        public async Task<ICollection<TaskEntity>> GetAllByCategoryId(int categoryId)
+        {
+            var list = await _tasks.Where(t => t.CategoryId == categoryId).ToListAsync();
+            if (list == null)
+            {
+                list = new List<TaskEntity>();
+            }
+
+            return list;
+        }
+
         public async Task<ICollection<TaskEntity>> GetAllWithDetails()
         {
             var tasks = await _tasks.Include(t => t.Category)
@@ -94,5 +105,5 @@ namespace TaskDAL.Repositories
             await _context.SaveChangesAsync();
         }
     }
-    }
 }
+

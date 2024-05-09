@@ -6,7 +6,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace TaskDAL.Repositories
 {
-    internal class CategoryRepository : AbstractRepository, ICategoryRepository
+    public class CategoryRepository : AbstractRepository, ICategoryRepository
     {
         private readonly DbSet<Category> _categories;
         public CategoryRepository(TaskContext context) : base(context)

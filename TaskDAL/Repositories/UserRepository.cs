@@ -49,6 +49,17 @@ namespace TaskDAL.Repositories
                         .ToListAsync();
         }
 
+        public async Task<ICollection<User>> GetAllWithDetails()
+        {
+            var users = await _users.Include(u => u.Tasks).ToListAsync();
+            if (users == null)
+            {
+                throw new ArgumentNullException(nameof(users), "users not found");
+            }
+
+            return users;
+        }
+
         public async Task<User> GetByIdAsync(int id)
         {
             var user = await _users.FindAsync(id);
@@ -58,6 +69,22 @@ namespace TaskDAL.Repositories
             }
 
             return user;
+        }
+
+        public async Task<User> GetByIdWithDetails(int id)
+        {
+            var user = await _users.Include(u => u.Tasks).FirstOrDefaultAsync();
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user), "User is not found");
+            }
+
+            return user;
+        }
+
+        public async Task<User> GetUserByUserName(string userName)
+        {
+            return await _users.FirstOrDefaultAsync(u => u.UserName == userName);
         }
 
         public async Task UpdateAsync(User entity)
