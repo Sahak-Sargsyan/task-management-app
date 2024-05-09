@@ -11,7 +11,7 @@ namespace TaskDAL.Repositories
         private readonly DbSet<Category> _categories;
         public CategoryRepository(TaskContext context) : base(context)
         {
-            _categories = _context.Categories;
+            this._categories = _context.Categories;
         }
 
         public async Task AddAsync(Category entity)

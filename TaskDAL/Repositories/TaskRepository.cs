@@ -51,6 +51,19 @@ namespace TaskDAL.Repositories
                         .ToListAsync();
         }
 
+        public async Task<ICollection<TaskEntity>> GetAllWithDetails()
+        {
+            var tasks = await _tasks.Include(t => t.Category)
+                                    .Include(t => t.User)
+                                    .ToListAsync();
+            if(tasks == null)
+            {
+                throw new ArgumentException(nameof(tasks), "The list of tasks is null");
+            }
+
+            return tasks;
+        }
+
         public async Task<TaskEntity> GetByIdAsync(int id)
         {
             var task = await _tasks.FindAsync(id);
@@ -60,6 +73,18 @@ namespace TaskDAL.Repositories
             }
 
             return task;
+        }
+
+        public async Task<TaskEntity> GetByIdWithDetails(int id)
+        {
+            var entityWithDetails = await _tasks.Include(t => t.Category)
+                                                .Include(t => t.User).FirstOrDefaultAsync(task => task.Id == id);
+            if(entityWithDetails == null)
+            {
+                throw new ArgumentNullException(nameof(entityWithDetails), "The entity trying to get with details is null");
+            }
+            
+            return entityWithDetails;
         }
 
         public async Task UpdateAsync(TaskEntity entity)
