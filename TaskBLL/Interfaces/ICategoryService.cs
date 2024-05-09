@@ -2,7 +2,7 @@
 
 namespace TaskBLL.Interfaces
 {
-    public interface ICategoryModel : ICrud<CategoryModel>
+    public interface ICategoryService : ICrud<CategoryModel>
     {
         
     }

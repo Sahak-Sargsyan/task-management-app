@@ -2,8 +2,8 @@
 
 namespace TaskBLL.Interfaces
 {
-    public interface IUserModel : ICrud<UserModel>
+    public interface IUserService : ICrud<UserModel>
     {
-        
+
     }
 }

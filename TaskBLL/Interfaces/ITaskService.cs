@@ -2,7 +2,7 @@
 
 namespace TaskBLL.Interfaces
 {
-    public interface ITaskModel : ICrud<TaskModel>
+    public interface ITaskService : ICrud<TaskModel>
     {
         Task<IEnumerable<TaskModel>> GetTasksByCategory(int categoryId);
     }
