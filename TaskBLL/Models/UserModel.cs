@@ -11,14 +11,14 @@
         public ICollection<int> TaskIds { get; set; }
 
         public UserModel() { }
-        public UserModel(int id, string name, string userName, string email, string password, ICollection<int> taskIds)
+        public UserModel(int id, string name, string userName, string email, string password)
         {
             Id = id;
             Name = name;
             UserName = userName;
             Email = email;
             Password = password;
-            TaskIds = taskIds;
+            TaskIds = new List<int>();
         }
     }
 }

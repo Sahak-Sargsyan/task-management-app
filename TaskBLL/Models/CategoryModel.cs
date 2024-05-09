@@ -8,11 +8,11 @@
         public ICollection<int> TaskIds { get; set; }
 
         public CategoryModel() { }
-        public CategoryModel(int id, string name, ICollection<int> taskIds)
+        public CategoryModel(int id, string name)
         {
             this.Id = id;
             this.Name = name;
-            TaskIds = taskIds;
+            TaskIds = new List<int>();
         }
     }
 }
