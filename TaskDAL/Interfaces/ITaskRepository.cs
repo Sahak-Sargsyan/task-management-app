@@ -7,5 +7,6 @@ namespace TaskDAL.Interfaces
     {
         Task<TaskEntity> GetByIdWithDetails(int id);
         Task<ICollection<TaskEntity>> GetAllWithDetails();
+        Task<ICollection<TaskEntity>> GetAllByCategoryId(int categoryId);
     }
 }
