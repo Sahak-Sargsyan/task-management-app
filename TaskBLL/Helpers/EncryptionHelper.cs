@@ -13,6 +13,7 @@ namespace TaskBLL.Helpers
             {
                 aes.Key = Encoding.UTF8.GetBytes(key);
                 aes.IV = new byte[16];
+                aes.Padding = PaddingMode.PKCS7;
 
                 ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
                 using (MemoryStream msEncrypt =  new MemoryStream())
@@ -33,8 +34,9 @@ namespace TaskBLL.Helpers
         {
             using (Aes aes = Aes.Create())
             {
-                aes.Key = Encoding.UTF8.GetBytes(encryptedPassword);
+                aes.Key = Encoding.UTF8.GetBytes(key);
                 aes.IV = new byte[16];
+                aes.Padding = PaddingMode.PKCS7;
 
                 ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key,aes.IV);
 
