@@ -1,5 +1,6 @@
 ﻿using TaskBLL.Interfaces;
 using TaskBLL.Models;
+using TaskDAL.Interfaces;
 using TaskDAL.Repositories;
 using Task = System.Threading.Tasks.Task;
 using TaskEntity = TaskDAL.Entities.Task;
@@ -8,19 +9,15 @@ namespace TaskBLL.Services
 {
     public class TaskService : ITaskService
     {
-        private readonly TaskRepository _taskRepository;
-        public TaskService(TaskRepository taskRepository)
+        private readonly ITaskRepository _taskRepository;
+        public TaskService(ITaskRepository taskRepository)
         {
             this._taskRepository = taskRepository;
         }
 
         public async Task AddAsync(TaskModel model)
         {
-            var taskList = await _taskRepository.GetAllAsync();
-            var last = taskList.LastOrDefault();
-            var newIndex = last == null ? 1 : last.Id + 1;
-
-            var taskEntity = new TaskEntity(model.Id, model.Title, model.Description, model.DueDate, model.Priority, model.CategoryId, model.UserId);
+            var taskEntity = new TaskEntity(model.Title, model.Description, model.DueDate, model.UserId);
 
             await _taskRepository.AddAsync(taskEntity);
         }
@@ -37,14 +34,28 @@ namespace TaskBLL.Services
 
             foreach (var taskEntity in TaskEntityList)
             {
-                var taskModel = new TaskModel(
+                taskModelList.Add(new TaskModel(
                     taskEntity.Id, 
                     taskEntity.Title, 
                     taskEntity.Description, 
                     taskEntity.DueDate, 
-                    taskEntity.Priority, 
-                    taskEntity.CategoryId, 
-                    taskEntity.UserId);
+                    taskEntity.UserId));
+            }
+
+            return taskModelList;
+        }
+
+        public async Task<IEnumerable<TaskModel>> GetAllByUserId(int userId)
+        {
+            var tasks = await _taskRepository.GetAllByUserId(userId);
+            var taskModelList = new List<TaskModel>();
+
+            if(tasks != null)
+            {
+                foreach (var task in tasks)
+                {
+                    taskModelList.Add(new TaskModel(task.Id, task.Title, task.Description, task.DueDate, task.UserId));
+                }
             }
 
             return taskModelList;
@@ -53,36 +64,16 @@ namespace TaskBLL.Services
         public async Task<TaskModel> GetByIdAsync(int id)
         {
             var taskEntity = await _taskRepository.GetByIdWithDetails(id);
-            var taskModel = new TaskModel(taskEntity.Id, taskEntity.Title, taskEntity.Description, taskEntity.DueDate, taskEntity.Priority, taskEntity.CategoryId, taskEntity.UserId);
+            var taskModel = new TaskModel(taskEntity.Id, taskEntity.Title, taskEntity.Description, dueDate: taskEntity.DueDate, userId: taskEntity.UserId);
 
             return taskModel;
         }
 
-        public async Task<IEnumerable<TaskModel>> GetTasksByCategory(int categoryId)
-        {
-            var taskEnitityList = await _taskRepository.GetAllByCategoryId(categoryId);
-            var taskModelList = new List<TaskModel>();
-
-            if (taskEnitityList != null)
-            {
-                foreach(var taskEntity in taskEnitityList)
-                {
-                    taskModelList.Add(new TaskModel(taskEntity.Id,taskEntity.Title,taskEntity.Description, taskEntity.DueDate, taskEntity.Priority, taskEntity.Category.Id, taskEntity.UserId));
-                }
-            }
-
-            return taskModelList;
-        }
-
         public async Task UpdateAsync(TaskModel model)
         {
-            var taskToUpdate = await _taskRepository.GetByIdAsync(model.Id);
-            if(taskToUpdate == null)
-            {
-                throw new ArgumentNullException(nameof(model), "No such task to update");
-            }
+            var task = new TaskEntity(model.Title, model.Description, model.DueDate, model.UserId) { Id = model.Id };
 
-            await _taskRepository.UpdateAsync(taskToUpdate);
+            await _taskRepository.UpdateAsync(task);
         }
     }
 }
