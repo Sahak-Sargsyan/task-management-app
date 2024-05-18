@@ -1,6 +1,8 @@
 ﻿namespace TaskDAL.Repositories
 {
-    // Abstract repository that is inherited by all Repository classes
+    /// <summary>
+    /// Defines TaskContext field to work with db
+    /// </summary>
     public abstract class AbstractRepository
     {
         protected readonly TaskContext _context;

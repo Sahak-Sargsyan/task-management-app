@@ -1,0 +1,53 @@
+﻿@page
+@model TaskPL.Pages.RegisterModel
+@{
+}
+
+<main class="container">
+    <h2>Create a new account</h2>
+
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Input.Username"></label>
+            <input asp-for="Input.Username" class="form-control input" placeholder="Username" />
+            <span asp-validation-for="Input.Username" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Password"></label>
+            <input asp-for="Input.Password" type="password" class="form-control input" placeholder="Password" />
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Name"></label>
+            <input asp-for="Input.Name" class="form-control input" placeholder="Name" />
+            <span asp-validation-for="Input.Name" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary mt-4">Register</button>
+    </form>
+
+    <p class="mt-5">Already have an account ?</p>
+    <a class="btn btn-success" asp-page="/Login">Login</a>
+</main>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    main {
+        /* background: silver; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 50px;
+    }
+
+    .input {
+        max-width: 700px;
+        min-width: 320px;
+        width: 30vw;
+    }
+</style>

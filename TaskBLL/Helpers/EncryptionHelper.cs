@@ -5,14 +5,24 @@ using Aes = System.Security.Cryptography.Aes;
 
 namespace TaskBLL.Helpers
 {
+    /// <summary>
+    /// Helper class for encryption
+    /// </summary>
     public static class EncryptionHelper
     {
+        /// <summary>
+        /// Encrypts the string value
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="key"></param>
+        /// <returns>Encrypted password</returns>
         public static string Encrypt(string password, string key)
         {
             using (Aes aes = Aes.Create())
             {
                 aes.Key = Encoding.UTF8.GetBytes(key);
                 aes.IV = new byte[16];
+                aes.Padding = PaddingMode.PKCS7;
 
                 ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
                 using (MemoryStream msEncrypt =  new MemoryStream())
@@ -29,12 +39,19 @@ namespace TaskBLL.Helpers
             }
         }
 
+        /// <summary>
+        /// Decrypts the given encrypted string
+        /// </summary>
+        /// <param name="encryptedPassword"></param>
+        /// <param name="key"></param>
+        /// <returns>Decrypted password</returns>
         public static string Decrypt(string encryptedPassword, string key)
         {
             using (Aes aes = Aes.Create())
             {
-                aes.Key = Encoding.UTF8.GetBytes(encryptedPassword);
+                aes.Key = Encoding.UTF8.GetBytes(key);
                 aes.IV = new byte[16];
+                aes.Padding = PaddingMode.PKCS7;
 
                 ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key,aes.IV);
 
