@@ -2,6 +2,7 @@
 
 ## Overview
 The Task Management App is an ASP.NET-based application designed to facilitate efficient task management. It is accessible through a web browser and requires no local installation.
+You can access the live application here: [Task Management App](https://taskma.azurewebsites.net/).
 
 ## Features
 - **User Authentication:** Ensures that user data and tasks are kept private and secure.
@@ -21,9 +22,6 @@ The application is structured into three layers:
 
 ## Deployment
 The application is deployed on Azure, using Azure App Service and Azure SQL Database.
-
-## Live Application
-You can access the live application here: [Task Management App](https://taskma.azurewebsites.net/).
 
 ## Using the App
 - **Access the Application:** Click the link to visit the application.
