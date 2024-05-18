@@ -31,5 +31,5 @@ The application is deployed on Azure, using Azure App Service and Azure SQL Data
 ## Status
 The application is currently in a development phase with ongoing updates to enhance functionality.
 
-##Contact
+## Contact
 If you have any questions or suggestions, feel free to reach out at [sargsyan_sahak@yahoo.com].
