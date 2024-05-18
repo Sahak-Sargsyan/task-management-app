@@ -27,6 +27,9 @@ The application is deployed on Azure, using Azure App Service and Azure SQL Data
 - **Access the Application:** Click the link to visit the application.
 - **Register/Login:** Create a new account or log in.
 - **Manage Tasks:** Begin adding, editing, or deleting tasks as needed.
+- For quick access and testing, you may use the following test account:
+   **Username:** user
+   **Password:** password
 
 ## Status
 The application is currently in a development phase with ongoing updates to enhance functionality.
