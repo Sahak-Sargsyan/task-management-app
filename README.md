@@ -38,4 +38,4 @@ The application is currently in a development phase with ongoing updates to enha
 This Project is created for educational purposes and shouldn't be used for other intentions.
 
 ## Contact
-If you have any questions or suggestions, feel free to reach out at [sargsyan_sahak@yahoo.com].
+If you have any questions or suggestions, feel free to reach out at [sargsyan_sahak@outlook.com].
